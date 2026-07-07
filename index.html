@@ -20,10 +20,9 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
     background: #f0f2f5;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    padding: 16px;
   }
 
   .card {
@@ -33,27 +32,28 @@
     max-width: 400px;
     width: 100%;
     overflow: hidden;
+    margin: auto; /* 縦に余裕があれば中央、足りなければ上から自然にスクロール */
   }
 
   .card-header {
     background: linear-gradient(135deg, #0f172a, #1e293b);
-    padding: 40px 30px 60px;
+    padding: 26px 24px 30px;
     text-align: center;
     position: relative;
   }
 
   .avatar {
-    width: 110px;
-    height: 110px;
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
-    border: 4px solid rgba(255,255,255,0.3);
-    margin: 0 auto 16px;
+    border: 3px solid rgba(255,255,255,0.3);
+    margin: 0 auto 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     object-fit: cover;
   }
 
   .name-ja {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     color: #ffffff;
     letter-spacing: 0.08em;
@@ -70,7 +70,7 @@
   .title {
     font-size: 14px;
     color: rgba(255,255,255,0.8);
-    margin-top: 10px;
+    margin-top: 8px;
   }
 
   .company {
@@ -80,13 +80,13 @@
   }
 
   .card-body {
-    padding: 24px 24px 16px;
+    padding: 16px 24px 10px;
   }
 
   .info-item {
     display: flex;
     align-items: center;
-    padding: 14px 0;
+    padding: 11px 0;
     border-bottom: 1px solid #f1f5f9;
     text-decoration: none;
     color: #334155;
@@ -104,8 +104,8 @@
   }
 
   .info-icon {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -134,7 +134,7 @@
   }
 
   .card-footer {
-    padding: 8px 24px 28px;
+    padding: 6px 24px 22px;
   }
 
   .save-btn {
@@ -209,11 +209,30 @@
 
   .logo-mark {
     position: absolute;
-    top: 18px;
-    left: 18px;
-    width: 38px;
+    top: 14px;
+    left: 14px;
+    width: 32px;
     height: auto;
     opacity: 0.92;
+  }
+
+  /* 背の低い画面（iPhone SE等・ブラウザUI分を含む）ではさらに圧縮して
+     「連絡先を保存」ボタンまでファーストビューに収める */
+  @media (max-height: 720px) {
+    body { padding: 10px; }
+    .card-header { padding: 18px 24px 20px; }
+    .avatar { width: 64px; height: 64px; margin-bottom: 8px; }
+    .name-ja { font-size: 20px; }
+    .name-en { font-size: 11px; }
+    .title { margin-top: 6px; font-size: 13px; }
+    .company { font-size: 12px; }
+    .card-body { padding: 10px 20px 6px; }
+    .info-item { padding: 8px 0; }
+    .info-icon { width: 32px; height: 32px; margin-right: 12px; }
+    .info-value { font-size: 13px; }
+    .save-btn { padding: 12px; }
+    .powered { padding: 10px; }
+    .powered img { height: 32px; }
   }
 
   .info-icon.line { background: #dcfce7; }
@@ -311,16 +330,6 @@
       </div>
     </a>
 
-    <div class="info-item">
-      <div class="info-icon address">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-      </div>
-      <div>
-        <div class="info-label">Address</div>
-        <div class="info-value">東京都葛飾区東水元6-4-21-106</div>
-      </div>
-    </div>
-
     <a href="https://jeonglab.net" target="_blank" class="info-item">
       <div class="info-icon web">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -330,6 +339,16 @@
         <div class="info-value">jeonglab.net</div>
       </div>
     </a>
+
+    <div class="info-item">
+      <div class="info-icon address">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div>
+        <div class="info-label">Address</div>
+        <div class="info-value">東京都葛飾区東水元6-4-21-106</div>
+      </div>
+    </div>
   </div>
 
   <div class="card-footer">
