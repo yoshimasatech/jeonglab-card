@@ -37,46 +37,53 @@
 
   .card-header {
     background: linear-gradient(135deg, #0f172a, #1e293b);
-    padding: 26px 24px 30px;
-    text-align: center;
+    padding: 30px 24px 26px;
+    text-align: left;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
   }
 
   .avatar {
-    width: 84px;
-    height: 84px;
+    width: 104px;
+    height: 104px;
     border-radius: 50%;
     border: 3px solid rgba(255,255,255,0.3);
-    margin: 0 auto 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .header-info {
+    min-width: 0;
   }
 
   .name-ja {
-    font-size: 22px;
+    font-size: 23px;
     font-weight: 700;
     color: #ffffff;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
   }
 
   .name-en {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 4px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 3px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
   .title {
-    font-size: 14px;
+    font-size: 13px;
     color: rgba(255,255,255,0.8);
-    margin-top: 8px;
+    margin-top: 10px;
   }
 
   .company {
     font-size: 13px;
     color: rgba(255,255,255,0.5);
-    margin-top: 4px;
+    margin-top: 2px;
   }
 
   .card-body {
@@ -210,21 +217,21 @@
   .logo-mark {
     position: absolute;
     top: 14px;
-    left: 14px;
-    width: 32px;
+    right: 16px;
+    width: 30px;
     height: auto;
-    opacity: 0.92;
+    opacity: 0.85;
   }
 
   /* 背の低い画面（iPhone SE等・ブラウザUI分を含む）ではさらに圧縮して
      「連絡先を保存」ボタンまでファーストビューに収める */
   @media (max-height: 720px) {
     body { padding: 10px; }
-    .card-header { padding: 18px 24px 20px; }
-    .avatar { width: 64px; height: 64px; margin-bottom: 8px; }
+    .card-header { padding: 22px 20px 20px; gap: 14px; }
+    .avatar { width: 84px; height: 84px; }
     .name-ja { font-size: 20px; }
-    .name-en { font-size: 11px; }
-    .title { margin-top: 6px; font-size: 13px; }
+    .name-en { font-size: 10px; }
+    .title { margin-top: 7px; font-size: 12px; }
     .company { font-size: 12px; }
     .card-body { padding: 10px 20px 6px; }
     .info-item { padding: 8px 0; }
@@ -308,10 +315,12 @@
   <div class="card-header">
     <img class="logo-mark" src="logo-mark-white.png" alt="JEONG LAB">
     <img src="profile.jpg" alt="田中 義正" class="avatar">
-    <div class="name-ja">田中 義正</div>
-    <div class="name-en">Yoshimasa Tanaka</div>
-    <div class="title">個人事業主</div>
-    <div class="company">じょん総合研究所</div>
+    <div class="header-info">
+      <div class="name-ja">田中 義正</div>
+      <div class="name-en">Yoshimasa Tanaka</div>
+      <div class="title">個人事業主</div>
+      <div class="company">じょん総合研究所</div>
+    </div>
   </div>
 
   <div class="card-body">
