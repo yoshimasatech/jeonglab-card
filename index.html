@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yoshimasa Tanaka - JEONG LAB</title>
+<meta name="description" content="田中 義正（じょん総合研究所）のデジタル名刺。連絡先の保存・共有ができます。">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="田中 義正 | じょん総合研究所">
+<meta property="og:description" content="デジタル名刺 — タップして連絡先を保存できます">
+<meta property="og:url" content="https://yoshimasatech.github.io/jeonglab-card/">
+<meta property="og:image" content="https://yoshimasatech.github.io/jeonglab-card/profile.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%230f172a'/%3E%3Ctext x='24' y='31.5' font-family='Georgia,serif' font-size='19' fill='%23ffffff' text-anchor='middle' letter-spacing='1'%3EJL%3C/text%3E%3C/svg%3E">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -191,6 +200,63 @@
     padding: 16px;
     font-size: 11px;
     color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    letter-spacing: 0.12em;
+  }
+
+  .logo-mark {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.9;
+  }
+
+  .qr-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 20px;
+  }
+
+  .qr-overlay.open { display: flex; }
+
+  .qr-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px 28px 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .qr-box #qrcode {
+    display: flex;
+    justify-content: center;
+  }
+
+  .qr-box p {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .qr-close {
+    margin-top: 14px;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 10px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 13px;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -198,6 +264,10 @@
 
 <div class="card">
   <div class="card-header">
+    <svg class="logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="JEONG LAB">
+      <rect x="1.5" y="1.5" width="45" height="45" rx="10" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <text x="24" y="31.5" font-family="Georgia, serif" font-size="19" fill="#ffffff" text-anchor="middle" letter-spacing="1">JL</text>
+    </svg>
     <img src="profile.jpg" alt="田中 義正" class="avatar">
     <div class="name-ja">田中 義正</div>
     <div class="name-en">Yoshimasa Tanaka</div>
@@ -259,12 +329,27 @@
       </button>
       <button class="share-btn" onclick="copyLink()">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        リンクコピー
+        コピー
+      </button>
+      <button class="share-btn" onclick="showQR()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM21 14v.01M14 21v.01M21 21v.01M17.5 17.5v.01"/></svg>
+        QR
       </button>
     </div>
   </div>
 
-  <div class="powered">JEONG LAB</div>
+  <div class="powered">
+    <svg width="14" height="14" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="44" height="44" rx="10" fill="none" stroke="#cbd5e1" stroke-width="3"/><text x="24" y="32" font-family="Georgia, serif" font-size="19" fill="#cbd5e1" text-anchor="middle" letter-spacing="1">JL</text></svg>
+    JEONG LAB
+  </div>
+</div>
+
+<div class="qr-overlay" id="qrOverlay" onclick="if(event.target===this)hideQR()">
+  <div class="qr-box">
+    <div id="qrcode"></div>
+    <p>スマートフォンで読み取ってください</p>
+    <button class="qr-close" onclick="hideQR()">閉じる</button>
+  </div>
 </div>
 
 <script>
@@ -306,6 +391,27 @@ function shareCard() {
   }
 }
 
+var qrRendered = false;
+function showQR() {
+  var overlay = document.getElementById('qrOverlay');
+  if (!qrRendered) {
+    new QRCode(document.getElementById('qrcode'), {
+      text: 'https://yoshimasatech.github.io/jeonglab-card/',
+      width: 180,
+      height: 180,
+      colorDark: '#0f172a',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    qrRendered = true;
+  }
+  overlay.classList.add('open');
+}
+
+function hideQR() {
+  document.getElementById('qrOverlay').classList.remove('open');
+}
+
 function copyLink() {
   navigator.clipboard.writeText(window.location.href).then(function() {
     var btn = event.target.closest('.share-btn');
@@ -321,6 +427,7 @@ function copyLink() {
   });
 }
 </script>
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
 
 </body>
 </html>
