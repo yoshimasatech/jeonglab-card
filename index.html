@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://yoshimasatech.github.io/jeonglab-card/">
 <meta property="og:image" content="https://yoshimasatech.github.io/jeonglab-card/profile.jpg">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%230f172a'/%3E%3Ctext x='24' y='31.5' font-family='Georgia,serif' font-size='19' fill='%23ffffff' text-anchor='middle' letter-spacing='1'%3EJL%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -211,9 +211,17 @@
     position: absolute;
     top: 18px;
     left: 18px;
-    width: 34px;
-    height: 34px;
-    opacity: 0.9;
+    width: 38px;
+    height: auto;
+    opacity: 0.92;
+  }
+
+  .info-icon.line { background: #dcfce7; }
+
+  .powered img {
+    height: 44px;
+    width: auto;
+    opacity: 0.55;
   }
 
   .qr-overlay {
@@ -264,10 +272,7 @@
 
 <div class="card">
   <div class="card-header">
-    <svg class="logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="JEONG LAB">
-      <rect x="1.5" y="1.5" width="45" height="45" rx="10" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-      <text x="24" y="31.5" font-family="Georgia, serif" font-size="19" fill="#ffffff" text-anchor="middle" letter-spacing="1">JL</text>
-    </svg>
+    <img class="logo-mark" src="logo-mark-white.png" alt="JEONG LAB">
     <img src="profile.jpg" alt="田中 義正" class="avatar">
     <div class="name-ja">田中 義正</div>
     <div class="name-en">Yoshimasa Tanaka</div>
@@ -306,6 +311,16 @@
       </div>
     </div>
 
+    <a href="https://lin.ee/n7B4YMK" target="_blank" class="info-item">
+      <div class="info-icon line">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#06c755" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>
+      </div>
+      <div>
+        <div class="info-label">LINE</div>
+        <div class="info-value">LINE公式アカウント</div>
+      </div>
+    </a>
+
     <a href="https://jeonglab.net" target="_blank" class="info-item">
       <div class="info-icon web">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -339,8 +354,7 @@
   </div>
 
   <div class="powered">
-    <svg width="14" height="14" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="44" height="44" rx="10" fill="none" stroke="#cbd5e1" stroke-width="3"/><text x="24" y="32" font-family="Georgia, serif" font-size="19" fill="#cbd5e1" text-anchor="middle" letter-spacing="1">JL</text></svg>
-    JEONG LAB
+    <img src="logo-full-dark.png" alt="JEONG LAB">
   </div>
 </div>
 
@@ -365,6 +379,7 @@ function downloadVCard() {
     'EMAIL:jeongyoshimasa@outlook.com',
     'ADR;TYPE=WORK:;;東水元6-4-21-106;葛飾区;;125-0033;日本',
     'URL:https://jeonglab.net',
+    'URL;TYPE=LINE:https://lin.ee/n7B4YMK',
     'END:VCARD'
   ].join('\r\n');
 
